@@ -11,7 +11,6 @@ end
 level = input("Enter the number of pyramid levels: \n");
 
 feat = {};
-norm_feat = {};
 img_blocks = {};
 num_sample = 59;
 varinece = {};
