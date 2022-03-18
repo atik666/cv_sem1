@@ -60,9 +60,11 @@ for l=1:59
         for j=1:No
             ind=(i-1)*No+j;      		% Calculate the index of each sub-plot
             %subplot(4,6,ind);           		% Create a multi-figure plot
-            Mi=abs(E0{i,j});            		% Create the magnitude for each Gabor channel
+            Mi=abs(E0{l,1}{i,j});            		% Create the magnitude for each Gabor channel
             %imshow(Mi,[]);              		% Show the Gabor filter output
             Miv{l,ind}=reshape(Mi,X*Y,1); 	% Reshape the matrix data to vector data
         end
     end
 end
+
+save Miv.mat Miv
