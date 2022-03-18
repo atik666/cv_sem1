@@ -32,7 +32,7 @@ end
 features = [cell2mat(varinece), cell2mat(avr), cell2mat(skew), cell2mat(kurt)];
 
 num_feat = input("Enter the number of features: \n");
-norm_feat = normalize(features(:,1:num_feat*level)); % Feat from original samples
+norm_feat = normalize(features(:,1:num_feat*level), 'range'); % Feat from original samples
 
 image_blocks = {};
 for i = 1:num_sample
@@ -66,7 +66,7 @@ for m = 1:59
         feat_4 = cell2mat(kurt_n{m, 1}{i, 1});
         feat_n = [feat_1, feat_2, feat_3, feat_4];
         
-        norm_feat_n{m,1}{i,1} = normalize(feat_n(:,1:num_feat*level));
+        norm_feat_n{m,1}{i,1} = normalize(feat_n(:,1:num_feat*level), 'range');
     end
 end
 
