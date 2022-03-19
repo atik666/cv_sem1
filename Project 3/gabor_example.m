@@ -52,8 +52,33 @@ end
 Ns=4; No=6;			% Numbers of scale and orientation in Gabor	
 
 for i = 1:59
-    E0{i,1} = gaborconvolve(texture{i,1},Ns,No,3,2,0.65,1.5);
+    E01{i,1} = gaborconvolve(texture{i,1},Ns,No,3,2,0.65,1.5);
 end
+
+for l=1:59
+    for i=1:Ns
+        for j=1:No
+            ind=(i-1)*No+j;      		% Calculate the index of each sub-plot
+            %subplot(4,6,ind);           		% Create a multi-figure plot
+            Mi=abs(E01{l,1}{i,j});            		% Create the magnitude for each Gabor channel
+            %imshow(Mi,[]);              		% Show the Gabor filter output
+            Miv{l,ind}=reshape(Mi,X*Y,1); 	% Reshape the matrix data to vector data
+        end
+    end
+end
+
+%%
+[X,Y]=size(image_blocks{1, 1}{1, 1});		% Size of the texture image
+Ns=4; No=6;			% Numbers of scale and orientation in Gabor	
+
+E0 = {};
+for i = 1:59
+    for j = 1:100
+        E0{i,1}{j,1} = gaborconvolve(image_blocks{i, 1}{j, 1},Ns,No,3,2,0.65,1.5);
+    end
+end
+
+
 
 for l=1:59
     for i=1:Ns
@@ -67,4 +92,4 @@ for l=1:59
     end
 end
 
-save('Miv.mat', 'Miv', '-v7.3')
+save('Miv_blocks.mat', 'Miv', '-v7.3')
