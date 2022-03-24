@@ -41,9 +41,9 @@
 clear; clc;
 % texture=imread('D:/PhD/OneDrive - Oklahoma A and M System/CM/Project 3/Samples/D8','bmp');
 
-dir = 'D:/PhD/OneDrive - Oklahoma A and M System/CM/Project 3/Samples/';
+dir = '/home/admin1/Documents/Atik/CM/Project 3/Samples/';
 
-img = {};
+texture = {};
 for i = 1:59
     texture{i,1} = imread(sprintf('%s/D%d.bmp', dir, i));
 end
@@ -67,6 +67,7 @@ for l=1:59
     end
 end
 
+%save("Miv.mat", 'Miv', '-v7.3')
 %%
 [X,Y]=size(image_blocks{1, 1}{1, 1});		% Size of the texture image
 Ns=4; No=6;			% Numbers of scale and orientation in Gabor	
@@ -74,22 +75,24 @@ Ns=4; No=6;			% Numbers of scale and orientation in Gabor
 E0 = {};
 for i = 1:59
     for j = 1:100
-        E0{i,1}{j,1} = gaborconvolve(image_blocks{i, 1}{j, 1},Ns,No,3,2,0.65,1.5);
+        x = gaborconvolve(image_blocks{i, 1}{j, 1},Ns,No,3,2,0.65,1.5);
+        E0{i,1}{j,1} = x;
     end
 end
 
-
-
 for l=1:59
-    for i=1:Ns
-        for j=1:No
-            ind=(i-1)*No+j;      		% Calculate the index of each sub-plot
-            %subplot(4,6,ind);           		% Create a multi-figure plot
-            Mi=abs(E0{l,1}{i,j});            		% Create the magnitude for each Gabor channel
-            %imshow(Mi,[]);              		% Show the Gabor filter output
-            Miv{l,ind}=reshape(Mi,X*Y,1); 	% Reshape the matrix data to vector data
+    for m = 1:100
+        for i=1:Ns
+            for j=1:No
+                ind=(i-1)*No+j;      		% Calculate the index of each sub-plot
+                %subplot(4,6,ind);           		% Create a multi-figure plot
+                Mi=abs(E0{l,1}{m,1}{i,j});            		% Create the magnitude for each Gabor channel
+                %imshow(Mi,[]);              		% Show the Gabor filter output
+                Miv1=reshape(Mi,X*Y,1); 	% Reshape the matrix data to vector data
+                Miv2{l,1}{m,ind} = Miv1;
+            end
         end
     end
 end
 
-save('Miv_blocks.mat', 'Miv', '-v7.3')
+save('Miv_blocks.mat', 'Miv2', '-v7.3')

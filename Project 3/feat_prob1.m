@@ -21,10 +21,11 @@ ncols = 10;
 for i = 1:num_sample
     l_pyramid = L_pyramid(img{i,1},level);
     for m = 1:level
-        varinece{i,m} = var(l_pyramid{1,m},[],[1 2]);
-        avr{i,m} = mean2(l_pyramid{1,m});
-        skew{i,m} = skewness(l_pyramid{1,m},[],[1 2]);
-        kurt{i,m} = kurtosis(l_pyramid{1,m},[],[1 2]);
+        shape = reshape(l_pyramid{1,m},1,[])';
+        varinece{i,m} = var(shape);
+        avr{i,m} = mean(shape);
+        skew{i,m} = skewness(shape);
+        kurt{i,m} = kurtosis(shape);
     end
 end
 
@@ -48,10 +49,11 @@ for m = 1:59
     for i = 1:100
         l_pyramid_n{m,1}{i, 1} = L_pyramid(image_blocks{m, 1}{i, 1},level);
         for n = 1:level
-            varinece_n{m,1}{i, 1}{1,n} = var(l_pyramid_n{m, 1}{i, 1}{1, n},[],[1 2]);
-            avr_n{m,1}{i, 1}{1,n} = mean2(l_pyramid_n{m, 1}{i, 1}{1, n});
-            skew_n{m,1}{i, 1}{1,n} = skewness(l_pyramid_n{m, 1}{i, 1}{1, n},[],[1 2]);
-            kurt_n{m,1}{i, 1}{1,n} = kurtosis(l_pyramid_n{m, 1}{i, 1}{1, n},[],[1 2]);
+            shape_n = reshape(l_pyramid_n{m, 1}{i, 1}{1, n},1,[])';
+            varinece_n{m,1}{i, 1}{1,n} = var(shape_n);
+            avr_n{m,1}{i, 1}{1,n} = mean(shape_n);
+            skew_n{m,1}{i, 1}{1,n} = skewness(shape_n);
+            kurt_n{m,1}{i, 1}{1,n} = kurtosis(shape_n);
         end
     end
 end 
